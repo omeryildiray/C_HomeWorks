@@ -1,0 +1,142 @@
+#include <stdio.h>
+#include <string.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <time.h>
+void main()
+{
+	char ad[BUFSIZ];
+	char sifre[BUFSIZ];
+	char ad2[BUFSIZ];
+	char sifre2[BUFSIZ];
+	int adKontrol;
+	int sifreKontrol;
+	int menuSec;
+	int eMebla;
+	int cMebla;
+	int hMebla;
+	srand(time(NULL)); /*Program her yeni açıldığında ilk para miktarına yeni değer verir*/
+	int sonBakiye=rand()%1001; /*Hesaptaki ilk değer 1 ile 1000 arasında değer alır*/
+	int hNo;
+
+	printf("~~~~~~~~BANKAMIZA HOS GELDINIZ~~~~~~~~\n\n"); 
+	printf("Kullanici Adinizi belirleyiniz:"); /*Bu kısımda kullanıcıdan, kullanıcı adı ve şifresi belirlemesi istenmektedir*/
+	scanf("%s",ad);
+	printf("Kullanici Sifrenizi belirleyiniz:");
+	scanf("%s",sifre);
+	printf("\n");
+	printf("\n");
+	printf("Kullanici Adiniz: %s\n",ad);
+	printf("Kullanici Sifreniz: %s\n",sifre);
+	printf("Kullanici Adiniz ve Sifreniz kaydedildi...\n\n");
+
+	system("CLS"); 
+	printf("Sisteme giris yapmak icin bilgilerinizi giriniz...\n");
+
+	/*Bu kısımda kullanıcıdan kullanıcı bilgilerini girmesi istenmektedir*/
+	
+	do /*ve do-while ile sonsuz döngü oluşturulmuştur, kullanıcı doğru bilgileri girinceye kadar sorgu tekrarlanacaktır*/
+	{
+		printf("Kullanici Adinizi giriniz:");
+		flushall();
+		gets(ad2);
+		printf("Kullanici Sifrenizi giriniz:");
+		flushall();
+		gets(sifre2);
+		printf("\n");
+		adKontrol=strcmp(ad,ad2); /*strcmp fonksiyonuyla sifreler ve kullanıcı adları karşılanmaktadır*/
+		sifreKontrol=strcmp(sifre,sifre2);
+		if(adKontrol==0 && sifreKontrol==0)
+		{
+			printf("Kullanici bilgileriniz dogru...\n\n");
+			break;
+		}
+		else
+		{
+			printf("Kullanici Adiniz yada Sifreniz yanlis!\n");
+			printf("Lutfen bilgilerinizi tekrar giriniz!\n\n");
+		}
+	}
+	while(adKontrol!=0 || sifreKontrol!=0);
+	
+	printf("~~~~~~~~BANKA HESAP SISTEMINE HOSGELDINIZ~~~~~~~~\n");
+	
+
+
+	for(;;) /*for ile sonsuz döngü oluşturulmuştur, kullanıcı her işlem sonunda yeni bir işlem yapabilmektedir*/
+	{
+		printf("Gerceklestirmek istediginiz islemi seciniz:\n");
+		printf("1-Hesaptaki para miktarini Goster\n");
+		printf("2-Hesaba para Ekle\n");
+		printf("3-Hesaptan para Cek\n");
+		printf("4-Baska hesaba para Gonder\n");
+		printf("5-Islemi Sonlandir\n");
+		
+		scanf("%d",&menuSec);
+		
+		switch(menuSec) /*switch ile menü seçimi yapılmaktadır*/
+		{
+		case 1:
+				printf("\nBakiyenizde %d TL Para Vardir\n",sonBakiye);
+				break;
+		case 2:
+				
+				printf("\nBakiyenizde %d TL Para Vardir\n",sonBakiye);
+				printf("\nHesabiniza Eklemek Istediginiz Para Miktarini Giriniz\n");
+				scanf_s("%d",&eMebla);
+				sonBakiye=sonBakiye+eMebla;
+					
+				printf("\nHesabinizdaki son para miktari %d\n",sonBakiye);
+				break;
+		case 3:
+			printf("\nBakiyenizde %d TL Para Vardir\n",sonBakiye);
+			printf("\nHesabinizdan Cekmek Istediginiz Para Miktarini Giriniz\n");
+			scanf_s("%d",&cMebla);
+				
+			if(cMebla<=sonBakiye)
+			{
+				
+				sonBakiye=sonBakiye-cMebla;
+				printf("\nHesabinizdaki son para miktari %d\n",sonBakiye);
+						
+			}
+			else
+				printf("\nO kadar Paraniz Yok!!!\n");
+						
+				
+			break;
+		case 4:
+			printf("\nBakiyenizde %d TL Para Vardir\n",sonBakiye);
+			printf("\nHavale Yapmak Istediginiz Hesap Numarasini Giriniz:\n");
+			scanf_s("%d",&hNo);
+			printf("\nYollamak Istediginiz Para Miktarini Giriniz:\n");
+			scanf_s("%d",&hMebla);
+			if(hMebla<=sonBakiye)
+			{
+				
+				printf("Paraniz Transfer Edilmistir!\n");
+
+				sonBakiye=sonBakiye-hMebla;
+				printf("\nHesabinizdaki son para miktari %d\n",sonBakiye);
+			}
+			else
+				printf("\nO Kadar Paraniz Yok!!!\n");
+			break;
+		case 5:
+			printf("Banka Sisteminden ayriliyorsunuz!\n");
+			break;
+				
+		default:
+			printf("Yanlis tusa bastiniz!!!");
+			break;
+		
+		}
+
+		if (menuSec==5) /*Sonsuz döngüden çıkmamız için menüden çık komutuyla (break) ile çıkılır*/
+			break;
+		else
+			printf("\n");
+		
+	}
+	printf("GULE GULE!\n");
+}
